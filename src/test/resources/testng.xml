@@ -1,0 +1,10 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd">
+<suite name="DemoQA Test Suite">
+    <test name="Practice Form Tests">
+        <classes>
+            <class name="com.demoqa.tests.FormFillingTest"/>
+            <class name="com.demoqa.tests.PopupValidationTest"/>
+            <class name="com.demoqa.tests.FieldValidationTest"/>
+        </classes>
+    </test>
+</suite>
