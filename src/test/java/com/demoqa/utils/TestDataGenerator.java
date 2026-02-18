@@ -8,12 +8,19 @@ public class TestDataGenerator {
 
     private static final Random random = new Random();
 
+    // Константа с фиксированным email для всех тестов
+    public static final String FIXED_EMAIL = "test1@mail.ru";
+
     /**
      * Генерация случайного имени
      */
     public static String generateFirstName() {
-        String[] names = {"Alex", "John", "Michael", "David", "James", "Robert",
-                "Maria", "Anna", "Elena", "Olga", "Natasha", "Ivan"};
+        String[] names = {
+                "Александр", "Дмитрий", "Максим", "Сергей", "Андрей",
+                "Алексей", "Артём", "Илья", "Кирилл", "Никита",
+                "Елена", "Анна", "Мария", "Ольга", "Наталья",
+                "Екатерина", "Татьяна", "Ирина", "Светлана", "Юлия"
+        };
         return names[random.nextInt(names.length)];
     }
 
@@ -21,18 +28,13 @@ public class TestDataGenerator {
      * Генерация случайной фамилии
      */
     public static String generateLastName() {
-        String[] lastNames = {"Smith", "Johnson", "Williams", "Brown", "Jones",
-                "Garcia", "Miller", "Davis", "Rodriguez", "Martinez"};
+        String[] lastNames = {
+                "Иванов", "Смирнов", "Кузнецов", "Попов", "Васильев",
+                "Петров", "Соколов", "Михайлов", "Новиков", "Федоров",
+                "Морозов", "Волков", "Алексеев", "Лебедев", "Семенов",
+                "Егорова", "Павлова", "Козлова", "Степанова", "Николаева"
+        };
         return lastNames[random.nextInt(lastNames.length)];
-    }
-
-    /**
-     * Генерация email
-     */
-    public static String generateEmail() {
-        return generateFirstName().toLowerCase() +
-                generateLastName().toLowerCase() +
-                random.nextInt(1000) + "@test.com";
     }
 
     /**
@@ -50,7 +52,7 @@ public class TestDataGenerator {
      * Генерация случайного пола
      */
     public static String generateGender() {
-        String[] genders = {"Male", "Female", "Other"};
+        String[] genders = {"Male", "Female", "Other"}; // API сайта ожидает английские значения
         return genders[random.nextInt(genders.length)];
     }
 
@@ -58,9 +60,12 @@ public class TestDataGenerator {
      * Генерация адреса
      */
     public static String generateAddress() {
-        String[] streets = {"Main St", "Broadway", "Park Ave", "Oak Street",
-                "Pine Street", "Maple Avenue"};
-        return random.nextInt(1000) + " " + streets[random.nextInt(streets.length)];
+        String[] streets = {
+                "ул. Ленина", "ул. Пушкина", "ул. Гагарина", "ул. Мира",
+                "пр. Победы", "ул. Советская", "ул. Кирова", "ул. Садовая",
+                "бульвар Космонавтов", "набережная Реки", "ул. Лесная", "пр. Строителей"
+        };
+        return "д. " + (random.nextInt(100) + 1) + ", " + streets[random.nextInt(streets.length)];
     }
 
     /**

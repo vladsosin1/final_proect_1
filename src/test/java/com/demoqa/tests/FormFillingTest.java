@@ -29,23 +29,24 @@ public class FormFillingTest extends BaseTest {
         String gender = "Male";
         String mobile = TestDataGenerator.generateMobileNumber();
 
-        Allure.step("Заполнение обязательных полей: имя, фамилия, пол, телефон");
+        Allure.step("Заполнение обязательных полей: имя '" + firstName + "', фамилия '" + lastName + "', пол, телефон");
         PracticeFormPopupPage popupPage = formPage.fillMinimumRequiredFields(
                 firstName, lastName, gender, mobile
         );
 
-        Allure.step("Проверка отображения попапа");
+        Allure.step("Проверка отображения модального окна");
         Assert.assertTrue(popupPage.isPopupDisplayed(),
-                "Попап с результатами не появился после отправки формы!");
+                "Модальное окно с результатами не появился после отправки формы!");
 
-        Allure.step("Проверка данных в попапе");
+        Allure.step("Проверка данных в модальном окне");
         String expectedFullName = firstName + " " + lastName;
         Assert.assertEquals(popupPage.getStudentName(), expectedFullName,
-                "Имя студента в попапе не совпадает с введенным");
+                "Имя студента в модальном окне не совпадает с введенным. Ожидалось: '" + expectedFullName +
+                        "', получено: '" + popupPage.getStudentName() + "'");
         Assert.assertEquals(popupPage.getMobile(), mobile,
-                "Номер телефона в попапе не совпадает с введенным");
+                "Номер телефона в модальном окне не совпадает с введенным");
         Assert.assertEquals(popupPage.getGender(), gender,
-                "Пол в попапе не совпадает с выбранным");
+                "Пол в модальном окне не совпадает с выбранным");
     }
 
     @Test(description = "Проверка обязательности поля Mobile")
@@ -54,16 +55,18 @@ public class FormFillingTest extends BaseTest {
     @Description("Проверка, что форма не отправляется без заполнения поля Mobile")
     public void testMobileFieldIsRequired() {
         PracticeFormPage formPage = new PracticeFormPage(driver);
+        String firstName = TestDataGenerator.generateFirstName();
+        String lastName = TestDataGenerator.generateLastName();
 
-        Allure.step("Заполнение всех полей кроме Mobile");
-        formPage.enterFirstName("John")
-                .enterLastName("Doe")
+        Allure.step("Заполнение всех полей кроме Mobile. Имя: " + firstName + " " + lastName);
+        formPage.enterFirstName(firstName)
+                .enterLastName(lastName)
                 .selectGender("Male")
                 .clickSubmit();
 
-        Allure.step("Проверка, что попап не появился");
+        Allure.step("Проверка, что в модальном окне не появился");
         PracticeFormPopupPage popupPage = new PracticeFormPopupPage(driver);
         Assert.assertFalse(popupPage.isPopupDisplayed(),
-                "Попап появился, хотя поле Mobile не было заполнено!");
+                "Модальное окно появилось, хотя поле Mobile не было заполнено!");
     }
 }
